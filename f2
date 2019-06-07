@@ -1,0 +1,37 @@
+#!/bin/bash
+echo "Вариант 11"
+echo "Введите количество конкатенаций:"
+read num
+echo "Введите максимальную длину результирующего файла в байтах:"
+read maxsize
+
+[ -f "$1" ] || { 
+ printf "Ошибка: файл не был введен."
+ exit 1
+}
+
+fsize=$(stat -c %s "$1")
+total=0
+i=1
+calc=$((($maxsize/$fsize)-1))
+resfile=/tmp/resfile
+
+:>"$resfile"
+
+if [ $calc -lt $num ]
+   then echo "Нельзя выполнить $num конкатенации(-ий), т.к. будет превышена максимальная длина; можно не более $calc."
+fi
+
+while [ $i -lt $calc ]
+      do
+        cat "$1" >> "$resfile"
+        i=$(($i+1))
+done      
+
+total=$(($total + ($fsize*($num+1))))
+
+echo "Количество байт при $num конкатенации(-ях) равно $total."
+
+exit 0
+
+
