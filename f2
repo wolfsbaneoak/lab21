@@ -19,13 +19,13 @@ resfile=/tmp/resfile
 :>"$resfile"
 
 if [ $calc -lt $num ]
-   then echo "Нельзя выполнить $num конкатенации(-ий), т.к. будет превышена максимальная длина; можно не более $calc."
+then echo "Нельзя выполнить $num конкатенации(-ий), т.к. будет превышена максимальная длина; можно не более $calc."
 fi
 
 while [ $i -lt $calc ]
-      do
-        cat "$1" >> "$resfile"
-        i=$(($i+1))
+do
+cat "$1" >> "$resfile"
+i=$(($i+1))
 done      
 
 total=$(($total + ($fsize*($num+1))))
